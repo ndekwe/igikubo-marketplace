@@ -1,14 +1,13 @@
-# Configuration de deploiement Netlify
-# Site statique : aucun build, on publie le dossier tel quel.
+# Déploiement Igikubo Marketplace (Next.js 16 + Supabase) sur Netlify.
+# Le runtime Next.js de Netlify (@netlify/plugin-nextjs) gère le build serveur,
+# les fonctions serverless et le proxy. Les variables d'environnement
+# (Supabase, Stripe, NEXT_PUBLIC_SITE_URL) se règlent dans l'UI Netlify, jamais ici.
 
 [build]
-  publish = "."
-  command = ""
+  command = "next build"
 
-# En-tetes de securite de base
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

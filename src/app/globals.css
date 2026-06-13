@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-nunito), "Nunito", sans-serif;
+  color: #36302a;
+  background: #fff9ef;
+}
+
+input[type="range"] {
+  accent-color: #ff8a63;
+}
+
+input::placeholder {
+  color: #b3a892;
+}
+
+@keyframes spinslow {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* --- Micro-interactions de la carte-disque (équivalent style-hover du design) --- */
+.disc-card {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.35s ease;
+}
+.disc-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 22px 40px rgba(120, 90, 40, 0.14);
+}
+.disc-card__emblem {
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.disc-card:hover .disc-card__emblem {
+  transform: rotate(45deg);
+}
+.disc-card__cta {
+  transition: background 0.2s ease;
+}
+.disc-card:hover .disc-card__cta {
+  background: #ff8a63 !important;
+}
+
+/* --- Liens de navigation --- */
+.nav-link {
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: #ff8a63;
+}
