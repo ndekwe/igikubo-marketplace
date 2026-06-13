@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Igikubo Marketplace — Des centaines de jeux pour un seul plateau</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header id="site-header" data-active=""></header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__blur" style="top:30px; right:120px; width:280px; height:280px; background:#ffce5c; opacity:.18;"></div>
+  <div class="hero__blur" style="bottom:0; left:40px; width:240px; height:240px; background:#7ec99a; opacity:.16;"></div>
+  <div class="hero__col">
+    <span class="chip-badge">✦ Une marketplace, mille jeux</span>
+    <h1>Des centaines de jeux pour <span>un seul plateau.</span></h1>
+    <p class="hero__lead">Igikubo est un plateau octogonal qui accueille des <strong>disques</strong> interchangeables. Chaque disque, c'est un jeu : maths, histoire, langues, biologie… imaginés par des créateurs du monde entier.</p>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:4px;">
+      <a class="btn btn-primary btn-lg" href="catalogue.html">Explorer les disques</a>
+      <a class="btn btn-ghost btn-lg" href="devenir-createur.html">Vendre mes créations</a>
+    </div>
+    <div class="hero__stats">
+      <div class="stat"><b>240+</b><span>disques publiés</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><b>80</b><span>créateurs actifs</span></div>
+      <div class="stat-sep"></div>
+      <div class="stat"><b>4–99</b><span>ans, pour tous</span></div>
+    </div>
+  </div>
+  <div class="hero__art">
+    <div class="plateau">
+      <div class="plateau__oct-a"></div>
+      <div class="plateau__oct-b"></div>
+      <div class="plateau__spin"></div>
+      <div class="plateau__hub"><span>i</span></div>
+      <div class="float-disc" style="top:-2%; left:6%; --r:-8deg; width:88px; height:88px; background:conic-gradient(from -22.5deg,#5aa9f0 0 45deg,#cfe6fb 45deg 90deg,#5aa9f0 90deg 135deg,#cfe6fb 135deg 180deg,#5aa9f0 180deg 225deg,#cfe6fb 225deg 270deg,#5aa9f0 270deg 315deg,#cfe6fb 0); box-shadow:inset 0 0 0 5px rgba(255,255,255,.6),0 12px 22px rgba(90,169,240,.35); animation:floaty 5s ease-in-out infinite;"><span style="color:#5aa9f0;">π</span></div>
+      <div class="float-disc" style="bottom:2%; right:-1%; --r:6deg; width:78px; height:78px; background:conic-gradient(from -22.5deg,#7ec99a 0 45deg,#d6efe0 45deg 90deg,#7ec99a 90deg 135deg,#d6efe0 135deg 180deg,#7ec99a 180deg 225deg,#d6efe0 225deg 270deg,#7ec99a 270deg 315deg,#d6efe0 0); box-shadow:inset 0 0 0 5px rgba(255,255,255,.6),0 12px 22px rgba(126,201,154,.35); animation:floaty 6s ease-in-out .8s infinite;"><span style="color:#5fae82;">B</span></div>
+      <div class="float-disc" style="top:18%; right:-6%; --r:12deg; width:64px; height:64px; background:conic-gradient(from -22.5deg,#f3a8d8 0 45deg,#fcdcf0 45deg 90deg,#f3a8d8 90deg 135deg,#fcdcf0 135deg 180deg,#f3a8d8 180deg 225deg,#fcdcf0 225deg 270deg,#f3a8d8 270deg 315deg,#fcdcf0 0); box-shadow:inset 0 0 0 4px rgba(255,255,255,.6),0 10px 18px rgba(243,168,216,.35); animation:floaty 5.5s ease-in-out 1.4s infinite;"><span style="color:#e07ec0;">?</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMENT CA MARCHE -->
+<section class="sec" id="comment">
+  <div class="section-head">
+    <span class="eyebrow" style="color:#7ec99a;">Comment ça marche</span>
+    <h2>Simple des deux côtés du plateau</h2>
+    <div class="seg">
+      <button type="button" id="tab-joueur" class="on coral" onclick="setMode('joueur')">Je joue</button>
+      <button type="button" id="tab-createur" onclick="setMode('createur')">Je crée</button>
+    </div>
+  </div>
+  <div class="steps" id="steps"></div>
+</section>
+
+<!-- DISQUES A LA UNE -->
+<section class="sec sec--tight">
+  <div class="row-head">
+    <div class="row-head__title">
+      <span class="eyebrow" style="color:#ff8a63;">Disques à la une</span>
+      <h2>Les coups de cœur de la communauté</h2>
+    </div>
+    <a class="btn btn-ghost btn-ghost--gold btn-md" href="catalogue.html">Voir tout le catalogue →</a>
+  </div>
+  <div class="grid-cards" id="featured"></div>
+</section>
+
+<!-- EXPLORER PAR THEME -->
+<section class="band-themes" id="themes">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow" style="color:#b8a7f0;">Explorer par thème</span>
+      <h2>Trouve ta prochaine partie</h2>
+    </div>
+    <div class="theme-grid" id="theme-grid"></div>
+  </div>
+</section>
+
+<!-- DEVIENS CREATEUR -->
+<section class="sec">
+  <div class="creator-band">
+    <div class="creator-band__deco1"></div>
+    <div class="creator-band__deco2"></div>
+    <div class="creator-band__col">
+      <span class="tag-soft">Pour les créateurs</span>
+      <h2>Tu as un jeu dans la tête ? Donne-lui un disque.</h2>
+      <p>Enseignants, chercheurs, passionnés : publie ton jeu pédagogique, touche les joueurs et la diaspora du monde entier, et gagne des revenus à chaque vente.</p>
+      <div class="checks">
+        <span>✓ Audience mondiale</span>
+        <span>✓ Revenus à chaque vente</span>
+        <span>✓ Communauté bienveillante</span>
+      </div>
+      <a class="btn-cream" href="devenir-createur.html">Commencer à vendre</a>
+    </div>
+    <div class="creator-band__art">
+      <div class="creator-disc"><span>+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="sec" style="padding-top:30px; padding-bottom:70px;">
+  <div class="section-head">
+    <span class="eyebrow" style="color:#f0a860;">Ils en parlent</span>
+    <h2>Joueurs et créateurs, même bonheur</h2>
+  </div>
+  <div class="quotes" id="testimonials"></div>
+</section>
+
+<footer id="site-footer"></footer>
+
+<script src="assets/components.js"></script>
+<script>
+  const STEPS = {
+    joueur: [
+      { num:'1', title:'Procure-toi le plateau', text:"Le plateau octogonal Igikubo est ta base de jeu pour la vie. Un seul achat, des milliers de parties." },
+      { num:'2', title:'Explore les disques', text:"Parcours le catalogue et filtre par thème, tranche d'âge ou nombre de joueurs. Trouve le jeu parfait." },
+      { num:'3', title:'Joue et recommence', text:"Glisse un disque, joue, échange-le pour un autre univers. Un plateau, mille aventures." }
+    ],
+    createur: [
+      { num:'1', title:'Conçois ton disque', text:"Imagine un jeu pédagogique et adapte-le au format disque compatible avec le plateau Igikubo." },
+      { num:'2', title:'Publie ta création', text:"Mets ton disque en ligne, fixe ton prix, raconte ton univers et tes règles en quelques minutes." },
+      { num:'3', title:'Vends au monde entier', text:"Touche les joueurs et la diaspora, reçois des avis, et gagne des revenus à chaque vente." }
+    ]
+  };
+
+  function setMode(mode) {
+    const accent = mode === 'joueur' ? '#ff8a63' : '#5fae82';
+    document.getElementById('steps').innerHTML = STEPS[mode].map(s => `
+      <div class="step">
+        <span class="step__num" style="background:${accent};">${s.num}</span>
+        <h3>${s.title}</h3>
+        <p>${s.text}</p>
+      </div>`).join('');
+    const tj = document.getElementById('tab-joueur'), tc = document.getElementById('tab-createur');
+    tj.className = mode === 'joueur' ? 'on coral' : '';
+    tc.className = mode === 'createur' ? 'on green' : '';
+  }
+
+  const DISCS = [
+    { title:'Les Fractales de Kigali', theme:'Mathématiques', creator:'Atelier Imena', price:12.9, rating:4.8, reviews:124, color:'#5aa9f0', colorLight:'#cfe6fb', icon:'π' },
+    { title:'Royaumes des Grands Lacs', theme:'Histoire', creator:'Studio Karibu', price:14.5, rating:4.9, reviews:89, color:'#f0a860', colorLight:'#fbe6cd', icon:'H' },
+    { title:'Le Grand Jeu des Langues', theme:'Langues', creator:'Lingua Lab', price:9.9, rating:4.7, reviews:203, color:'#ff9e7d', colorLight:'#ffded2', icon:'L' },
+    { title:'Forêt Vivante', theme:'Biologie', creator:'Mata Studio', price:11.5, rating:4.9, reviews:156, color:'#7ec99a', colorLight:'#d6efe0', icon:'B' }
+  ];
+
+  const THEMES = [
+    { name:'Mathématiques', icon:'π', count:38, color:'#5aa9f0' },
+    { name:'Histoire', icon:'H', count:27, color:'#f0a860' },
+    { name:'Langues', icon:'L', count:31, color:'#ff9e7d' },
+    { name:'Anthropologie', icon:'A', count:19, color:'#b8a7f0' },
+    { name:'Biologie', icon:'B', count:24, color:'#7ec99a' },
+    { name:'Informatique', icon:'I', count:22, color:'#4fc6c0' },
+    { name:'Stratégie', icon:'S', count:33, color:'#e0a93a' },
+    { name:'Hasard', icon:'?', count:15, color:'#e07ec0' },
+    { name:'Jeux de rôle', icon:'R', count:21, color:'#a98ee0' }
+  ];
+
+  const TESTIMONIALS = [
+    { quote:"Mon fils révise les maths sans s'en rendre compte. On change de disque chaque semaine, c'est devenu notre rituel du dimanche.", name:'Aline M.', role:'Joueuse · maman de 2', color:'#ff9e7d' },
+    { quote:"J'ai publié mon disque d'histoire en une après-midi. En trois mois, plus de 200 ventes et des messages du monde entier.", name:'Jean-Bosco K.', role:'Créateur · enseignant', color:'#7ec99a' },
+    { quote:"Un seul plateau et toute la famille y trouve son jeu. La forme octogonale plaît énormément aux enfants.", name:'Sofia R.', role:'Joueuse · animatrice', color:'#b8a7f0' }
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setMode('joueur');
+    document.getElementById('featured').innerHTML = DISCS.map(discCard).join('');
+    document.getElementById('theme-grid').innerHTML = THEMES.map(t => `
+      <a class="theme-cell" href="catalogue.html">
+        <span class="theme-cell__icon" style="background:${t.color};">${t.icon}</span>
+        <span class="theme-cell__name">${t.name}</span>
+        <span class="theme-cell__count">${t.count} disques</span>
+      </a>`).join('');
+    document.getElementById('testimonials').innerHTML = TESTIMONIALS.map(q => `
+      <div class="quote">
+        <span class="quote__stars">★★★★★</span>
+        <p>“${q.quote}”</p>
+        <div class="quote__who">
+          <span class="avatar avatar--md" style="background:${q.color};">${q.name.charAt(0).toUpperCase()}</span>
+          <div><b>${q.name}</b><span>${q.role}</span></div>
+        </div>
+      </div>`).join('');
+  });
+</script>
+</body>
+</html>

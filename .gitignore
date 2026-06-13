@@ -1,0 +1,15 @@
+# Dependances (au cas ou un outil en genere)
+node_modules/
+
+# Fichiers systeme / editeur
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Secrets (par securite, jamais de .env dans ce repo public)
+.env
+.env.*

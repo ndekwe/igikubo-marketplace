@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Fractales de Kigali — Igikubo Marketplace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header id="site-header" data-active="catalogue"></header>
+
+<section class="container container--narrow" style="padding:28px 24px 8px;">
+  <div class="crumbs"><a href="index.html">Accueil</a> &nbsp;›&nbsp; <a href="catalogue.html">Catalogue</a> &nbsp;›&nbsp; <span>Mathématiques</span> &nbsp;›&nbsp; <span class="here">Les Fractales de Kigali</span></div>
+</section>
+
+<section class="container container--narrow product" style="padding:18px 24px 50px;">
+  <!-- GALERIE -->
+  <div class="gallery">
+    <div class="gallery__main">
+      <span class="gallery__badge gallery__badge--l">Mathématiques</span>
+      <span class="gallery__badge gallery__badge--r">Best-seller</span>
+      <div id="main-view"></div>
+    </div>
+    <div class="thumbs" id="thumbs"></div>
+  </div>
+
+  <!-- INFOS -->
+  <div class="product__info">
+    <h1>Les Fractales de Kigali</h1>
+    <div class="product__byline">
+      <a class="product__creator" href="#">
+        <span class="avatar">A</span>
+        <b>par <u>Atelier Imena</u></b>
+      </a>
+      <span class="product__rate"><span class="stars">★★★★★</span> 4,8 <span class="muted">(124 avis)</span></span>
+    </div>
+    <p class="product__lead">Un disque où les enfants construisent des fractales inspirées des motifs imigongo. On compose, on répète, on observe la beauté des mathématiques, sans jamais avoir l'impression de réviser.</p>
+
+    <div class="meta-grid" id="meta"></div>
+
+    <div class="buybox">
+      <div class="buybox__price"><b>12,90 €</b><span>livraison incluse · diaspora</span></div>
+      <div class="buybox__row">
+        <div class="qty">
+          <button type="button" onclick="changeQty(-1)">−</button>
+          <span id="qty">1</span>
+          <button type="button" onclick="changeQty(1)">+</button>
+        </div>
+        <button type="button" class="btn-cart" id="cart-btn" onclick="addToCart()">Ajouter au panier</button>
+      </div>
+      <div class="buybox__reassure">
+        <span>✓ Compatible plateau Igikubo</span>
+        <span>✓ Retour 30 jours</span>
+        <span>✓ Soutient le créateur</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESCRIPTION + REGLES -->
+<section class="container container--narrow" style="padding:10px 24px 40px;">
+  <div class="two-col">
+    <div class="panel">
+      <h2>Le jeu en bref</h2>
+      <p>Chaque joueur reçoit un motif de départ et doit le reproduire à différentes échelles sur le disque. À chaque tour, on ajoute une « génération » de la fractale. Le premier à compléter trois niveaux gagne la partie.</p>
+      <p style="margin-bottom:0;">Derrière le jeu se cache une vraie initiation à la géométrie, aux suites et à la symétrie, pensée avec des enseignants pour les classes comme pour la maison.</p>
+    </div>
+    <div class="panel">
+      <h2>Règles résumées</h2>
+      <ul class="rules" id="rules"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="container container--narrow" style="padding:20px 24px 40px;">
+  <h2 class="font-display" style="margin:0 0 22px; font-size:1.8rem;">Avis des joueurs</h2>
+  <div class="reviews-block">
+    <div class="reviews-sum">
+      <span class="reviews-sum__big">4,8</span>
+      <span class="stars" style="font-size:1.2rem; letter-spacing:2px;">★★★★★</span>
+      <span class="reviews-sum__count">124 avis vérifiés</span>
+      <div class="dist" id="dist"></div>
+    </div>
+    <div class="reviews-list" id="reviews"></div>
+  </div>
+</section>
+
+<!-- SIMILAIRES -->
+<section class="container container--narrow" style="padding:20px 24px 70px;">
+  <div class="row-head" style="margin-bottom:24px;">
+    <h2 class="font-display" style="font-size:1.8rem;">Tu aimeras aussi</h2>
+    <a class="btn btn-ghost btn-ghost--gold btn-md" href="catalogue.html">Voir plus →</a>
+  </div>
+  <div class="grid-cards grid-cards--tight" id="similar"></div>
+</section>
+
+<footer id="site-footer"></footer>
+
+<script src="assets/components.js"></script>
+<script>
+  let qty = 1, added = false, view = 0;
+
+  function bigDisc() {
+    return `<div class="gallery__big"><div class="gallery__big-hub"><div class="gallery__big-emblem"><span>π</span></div></div></div>`;
+  }
+  function placeholder(label) {
+    return `<div class="ph"><span>${label}</span></div>`;
+  }
+  const VIEWS = [bigDisc(), placeholder('photo · le plateau'), placeholder('photo · la boîte'), placeholder('photo · une partie')];
+  const THUMBS = [
+    { type:'disc' },
+    { type:'label', label:'plateau' },
+    { type:'label', label:'boîte' },
+    { type:'label', label:'partie' }
+  ];
+
+  function setView(i) { view = i; renderGallery(); }
+  function renderGallery() {
+    document.getElementById('main-view').innerHTML = VIEWS[view];
+    document.getElementById('thumbs').innerHTML = THUMBS.map((t, i) => {
+      const inner = t.type === 'disc' ? '<span class="thumb__mini"></span>' : `<span class="thumb__label">${t.label}</span>`;
+      const cls = 'thumb' + (t.type === 'disc' ? ' thumb--disc' : '') + (view === i ? ' active' : '');
+      return `<button type="button" class="${cls}" onclick="setView(${i})">${inner}</button>`;
+    }).join('');
+  }
+
+  function changeQty(d) { qty = Math.max(1, qty + d); document.getElementById('qty').textContent = qty; }
+  function addToCart() {
+    added = true;
+    const btn = document.getElementById('cart-btn');
+    btn.textContent = 'Ajouté au panier ✓';
+    btn.classList.add('added');
+  }
+
+  const META = [
+    { label:'Joueurs', value:'2 – 4' },
+    { label:'Âge', value:'8 ans +' },
+    { label:'Durée', value:'20–30 min' },
+    { label:'Niveau', value:'Évolutif' }
+  ];
+  const RULES = [
+    'Chaque joueur choisit un motif de base sur son secteur du disque.',
+    'À tour de rôle, on ajoute une génération de la fractale en respectant la symétrie.',
+    'Les cartes « défi » imposent une échelle ou une couleur à reproduire.',
+    'Le premier à compléter trois générations correctes remporte la partie.'
+  ];
+  const DIST = [['5★',82],['4★',12],['3★',4],['2★',1],['1★',1]];
+  const REVIEWS = [
+    { name:'Claudine U.', text:"Mon fils de 9 ans adore. Il ne se rend même pas compte qu'il fait des maths !", color:'#ff9e7d' },
+    { name:'Patrick N.', text:"Magnifique objet, les motifs imigongo sont superbes. Parties courtes et malines.", color:'#7ec99a' },
+    { name:'Estelle M.', text:"Parfait en classe de CM1. Les enfants redemandent à chaque récré.", color:'#b8a7f0' },
+    { name:'Eric T.', text:"Le concept du disque interchangeable est génial. J'en ai déjà acheté trois.", color:'#5aa9f0' }
+  ];
+  const SIMILAR = [
+    { title:'Multiplions !', theme:'Mathématiques', creator:'Petite École', price:7.9, rating:4.6, reviews:188, color:'#5aa9f0', colorLight:'#cfe6fb', icon:'×' },
+    { title:'Forêt Vivante', theme:'Biologie', creator:'Mata Studio', price:11.5, rating:4.9, reviews:156, color:'#7ec99a', colorLight:'#d6efe0', icon:'B' },
+    { title:'Code & Cosmos', theme:'Informatique', creator:'Pixel Nkusi', price:13.0, rating:4.6, reviews:78, color:'#4fc6c0', colorLight:'#cdeeec', icon:'I' },
+    { title:'Le Grand Jeu des Langues', theme:'Langues', creator:'Lingua Lab', price:9.9, rating:4.7, reviews:203, color:'#ff9e7d', colorLight:'#ffded2', icon:'L' }
+  ];
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
+    document.getElementById('meta').innerHTML = META.map(m => `<div class="meta"><span>${m.label}</span><b>${m.value}</b></div>`).join('');
+    document.getElementById('rules').innerHTML = RULES.map((r, i) => `<li><span class="rules__n">${i + 1}</span><span>${r}</span></li>`).join('');
+    document.getElementById('dist').innerHTML = DIST.map(([star, pct]) => `
+      <div class="dist__row">
+        <span style="width:14px;">${star}</span>
+        <span class="dist__bar"><span class="dist__fill" style="width:${pct}%;"></span></span>
+        <span class="dist__pct">${pct}%</span>
+      </div>`).join('');
+    document.getElementById('reviews').innerHTML = REVIEWS.map(r => `
+      <div class="review">
+        <div class="review__head">
+          <span class="avatar" style="background:${r.color};">${r.name.charAt(0)}</span>
+          <div><strong>${r.name}</strong><span class="stars">★★★★★</span></div>
+        </div>
+        <p>“${r.text}”</p>
+      </div>`).join('');
+    document.getElementById('similar').innerHTML = SIMILAR.map(discCard).join('');
+  });
+</script>
+</body>
+</html>

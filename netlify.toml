@@ -1,0 +1,14 @@
+# Configuration de deploiement Netlify
+# Site statique : aucun build, on publie le dossier tel quel.
+
+[build]
+  publish = "."
+  command = ""
+
+# En-tetes de securite de base
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
