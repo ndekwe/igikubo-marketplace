@@ -8,6 +8,9 @@
 
 [build.environment]
   NODE_VERSION = "20"
+  # La clé anon et l'URL Supabase sont publiques (protégées par la RLS) et se
+  # retrouvent normalement dans le bundle client : on les exclut du scanner de secrets.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
