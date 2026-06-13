@@ -1,16 +1,23 @@
 # Déploiement Igikubo Marketplace (Next.js 16 + Supabase) sur Netlify.
 # Le runtime Next.js de Netlify (@netlify/plugin-nextjs) gère le build serveur,
-# les fonctions serverless et le proxy. Les variables d'environnement
-# (Supabase, Stripe, NEXT_PUBLIC_SITE_URL) se règlent dans l'UI Netlify, jamais ici.
+# les fonctions serverless et le proxy.
+#
+# Les clés Supabase PUBLIQUES (URL + anon) sont ici car elles sont de toute façon
+# envoyées au navigateur de chaque visiteur ; la sécurité repose sur la RLS, pas sur
+# leur confidentialité. La clé SECRÈTE (SUPABASE_SERVICE_ROLE_KEY) ne doit JAMAIS être
+# ici : elle se règle uniquement dans l'UI Netlify.
 
 [build]
   command = "next build"
 
 [build.environment]
   NODE_VERSION = "20"
-  # La clé anon et l'URL Supabase sont publiques (protégées par la RLS) et se
-  # retrouvent normalement dans le bundle client : on les exclut du scanner de secrets.
-  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  NEXT_PUBLIC_SUPABASE_URL = "https://myokytxfhqcoseobjjln.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15b2t5dHhmaHFjb3Nlb2JqamxuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEzNTE1MzEsImV4cCI6MjA5NjkyNzUzMX0.9V84oFMx2ElMY1CJCW7fgAJFJKLrK08vP5RV4Kv8_YM"
+  NEXT_PUBLIC_SITE_URL = "https://marketplace.yamhobe.com"
+  # SECRETS_SCAN_OMIT_KEYS attend des NOMS de variables (pas des valeurs).
+  # On dit au scanner d'ignorer ces clés publiques qui apparaissent dans le bundle.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY,NEXT_PUBLIC_SITE_URL"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
