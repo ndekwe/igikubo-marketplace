@@ -9,6 +9,9 @@
 
 [build]
   command = "next build"
+  # Surcharge le "publish directory" hérité du site statique (qui pointait sur la
+  # racine du repo et faisait échouer le plugin). Le runtime Next.js attend .next.
+  publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
