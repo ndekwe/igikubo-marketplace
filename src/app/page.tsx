@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import type { CSSProperties } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -38,7 +39,12 @@ function FloatingDisc({ size, color, light, icon, rot, top, bottom, left, right,
   );
 }
 
-export default async function HomePage() {
+export default async function HomePage({ searchParams }: { searchParams: Promise<{ code?: string }> }) {
+  // Les liens de confirmation/réinitialisation Supabase atterrissent sur la racine
+  // avec ?code=... : on transmet le code au gestionnaire qui crée la session.
+  const { code } = await searchParams;
+  if (code) redirect(`/auth/callback?code=${encodeURIComponent(code)}`);
+
   const supabase = await createClient();
   const [{ data: themesData }, { data: discsData }] = await Promise.all([
     supabase.from("themes").select("slug,name").order("name"),
