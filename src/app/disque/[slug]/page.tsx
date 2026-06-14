@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import DiscCard from "@/components/DiscCard";
 import ProductGallery from "@/components/ProductGallery";
 import AddToCartBox from "@/components/AddToCartBox";
+import FavoriteButton from "@/components/FavoriteButton";
 import { createClient } from "@/lib/supabase/server";
 import { themeVisual } from "@/lib/theme-visuals";
 
@@ -52,6 +53,21 @@ export default async function DisquePage({ params }: { params: Promise<{ slug: s
 
   if (!data) notFound();
   const disc = data as unknown as DiscRow;
+
+  // Session + état favori du joueur connecté
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  let isFavorited = false;
+  if (user) {
+    const { data: favRow } = await supabase
+      .from("favorites")
+      .select("disc_id")
+      .eq("user_id", user.id)
+      .eq("disc_id", disc.id)
+      .maybeSingle();
+    isFavorited = !!favRow;
+  }
 
   const themeSlug = disc.theme?.slug ?? "";
   const themeName = disc.theme?.name ?? "";
@@ -150,6 +166,8 @@ export default async function DisquePage({ params }: { params: Promise<{ slug: s
           </div>
 
           <AddToCartBox priceLabel={priceLabel} />
+
+          <FavoriteButton discId={disc.id} userId={user?.id ?? null} initialFavorited={isFavorited} />
         </div>
       </section>
 
